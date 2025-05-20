@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // ROTATE CHARACTER
+        // ROTATE CHARACTERS
         RotateCharacter(direction);
 
         // JUMP 
