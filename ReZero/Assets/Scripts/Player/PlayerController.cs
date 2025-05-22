@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 1f;
     private float gravityValue = -9.81f;
     private Vector3 playerVelocity;
-    private bool isGrounded = true;
+    private bool isGround;
 
     // PLAYER COMPONENTS
     private Rigidbody playerRb;
@@ -39,8 +39,10 @@ public class PlayerController : MonoBehaviour
         playerAnim = gameObject.GetComponent<Animator>();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         playerAnim.SetBool("is_Walking", false);
-
         UnityEngine.Cursor.visible = false;
+
+        isGround = isJump();
+
     }
 
     private void Update()
@@ -48,12 +50,15 @@ public class PlayerController : MonoBehaviour
         
         Controller(MoveDirection());
         playerRb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+       
         
     }
 
 
     void Controller(Vector3 direction)
     {
+        isGround = isJump();
+
         // VISIBLE CURSOR
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -62,19 +67,37 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // BOOST SPEED
+        // JUMP 
+        if (Input.GetButtonDown("Jump") && isJump())
+        {
+            playerVelocity.y = Mathf.Sqrt(jumpForce * -2.0f * gravityValue);
+            Debug.Log("dentro");
+        }
+        // APPLY GRAVITY
+        playerVelocity.y += gravityValue * Time.deltaTime;
 
+        // COMBINE HORIZONTAL AND VERTICAL MOVEMENT
+        Vector3 finalJump = (direction * speed) + (playerVelocity.y * Vector3.up);
+        playerCC.Move(finalJump * Time.deltaTime);
+        Debug.Log("Default speed: " + direction * speed);
+
+        // BOOST SPEED
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            playerCC.SimpleMove(BoostMove(direction));
-        }
-        else if(direction.z > 0 || direction.z < 0) 
-        {
-            playerCC.SimpleMove(direction * speed);
-           
-            playerAnim.SetBool("is_Walking", true);
+            //finalJump = (direction * speed) + (playerVelocity.y * Vector3.up);
+            //playerCC.Move((finalJump + BoostMove(direction)) * Time.deltaTime);
 
-        }else if(direction.z == 0)
+            finalJump = BoostMove(direction) + (playerVelocity.y * Vector3.up);
+            playerCC.Move(finalJump * Time.deltaTime);
+
+        }
+
+        if (direction.z > 0 || direction.z < 0)
+        {
+            //playerCC.SimpleMove(direction * speed);
+            playerAnim.SetBool("is_Walking", true);
+        }
+        else if(direction.z == 0)
         {
             playerAnim.SetBool("is_Walking", false);
 
@@ -82,20 +105,6 @@ public class PlayerController : MonoBehaviour
 
         // ROTATE CHARACTERS
         RotateCharacter(direction);
-
-        // JUMP 
-        if (Input.GetButtonDown("Jump") && isJump())
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpForce * -2.0f * gravityValue);
-           
-        }
-        // APPLY GRAVITY
-        playerVelocity.y += gravityValue * Time.deltaTime;
-
-        // COMBINE HORIZONTAL AND VERTICAL MOVEMENT
-        Vector3 finalJump = (playerVelocity.y * Vector3.up );
-        playerCC.Move(finalJump * jumpForce * Time.deltaTime);
-       
 
     }
 
@@ -110,6 +119,7 @@ public class PlayerController : MonoBehaviour
 
         // Mediante los Inputs.GetAxis transformamos los vectores "Globales" del jugador
         Vector3 direccion = transform.TransformDirection(moveInput.x , 0, moveInput.z);
+        direccion = Vector3.ClampMagnitude(direccion, 1f);
 
         return direccion;
 
@@ -123,13 +133,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetAxis("Vertical") > 0)
         {
             finalSpeed = direction * (speed + boostSpeed);
-            
         }
         else
         {
             finalSpeed = direction * (speed + (boostSpeed - 2));
             
         }
+        Debug.Log("Final Speed: " + finalSpeed);
         return finalSpeed;
     }
 
@@ -158,23 +168,21 @@ public class PlayerController : MonoBehaviour
 
     public bool isJump()
     {
-        float maxDistance = 0.1f;
+       
+        float maxDistance = 1.4f;
 
         RaycastHit hit;
-        Ray jumpRay = new Ray(transform.position + new Vector3(0,0.1f,0), -transform.up );
-        Debug.DrawRay(jumpRay.origin, jumpRay.direction + new Vector3(0, 0.9f, 0), Color.red);
+        Ray jumpRay = new Ray(transform.position, -transform.up );
+        Debug.DrawRay(transform.position + new Vector3(0, 1f, 0), transform.TransformDirection(Vector3.down), Color.red);
 
-
-
-        if (Physics.Raycast(jumpRay, out hit, maxDistance))
+        if (Physics.Raycast(transform.position + new Vector3(0,1f,0), transform.TransformDirection(Vector3.down),out hit, maxDistance))
         {
-            isGrounded = true;
+            return true;
         }
         else
         {
-            isGrounded = false;
+            return false;  
         }
-    
-        return isGrounded;
+
     }
 }

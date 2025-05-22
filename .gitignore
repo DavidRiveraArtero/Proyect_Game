@@ -70,6 +70,10 @@ crashlytics-build.properties
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
-# Temporary auto-generated Android Assets
+# Temporary auto-generated Android Assets Los 4 ultimos son nuevos, si falla se quitan
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+ReZero/Temp/FSTimeGet-0b85a1a3f23f9e340aa66b5e9d8753b3 
+ReZero/Temp/FSTimeGet-8518f1b2706a79c4187b6bc1ac21bcde
+ReZero/Temp/FSTimeGet-b9a5e9ab7d5af4440b5b9af921624368
+ReZero/Temp/UnityLockfile
