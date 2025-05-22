@@ -373,7 +373,7 @@ Transform:
   m_GameObject: {fileID: 721758601}
   serializedVersion: 2
   m_LocalRotation: {x: 0.117537394, y: 0, z: 0, w: 0.99306846}
-  m_LocalPosition: {x: -8.303939, y: 3.7515545, z: -17.752747}
+  m_LocalPosition: {x: -8.303939, y: 3.9222631, z: -18.0777}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -577,8 +577,8 @@ Transform:
   m_GameObject: {fileID: 1317580649}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.48, y: 1.03, z: 7.27}
-  m_LocalScale: {x: 1.6684, y: 1, z: 3.536}
+  m_LocalPosition: {x: -33.52, y: -2, z: 6.770006}
+  m_LocalScale: {x: 57.723976, y: 4, z: 31.824}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -686,8 +686,8 @@ Transform:
   m_GameObject: {fileID: 1496902295}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8718, y: -0, z: -3.0136}
-  m_LocalScale: {x: 2.8838131, y: 1, z: 3.8148084}
+  m_LocalPosition: {x: -3.8718, y: 0, z: -3.0136}
+  m_LocalScale: {x: 2.8838131, y: 3.64, z: 3.8148084}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -714,8 +714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6764b38be94b4b8e75b5a93dfa894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  boostSpeed: 4
+  speed: 6
+  boostSpeed: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -787,7 +787,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 0.020000458
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
       propertyPath: m_LocalPosition.z
@@ -828,6 +828,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
       propertyPath: m_Controller
@@ -923,7 +927,7 @@ Transform:
   m_GameObject: {fileID: 1997907382}
   serializedVersion: 2
   m_LocalRotation: {x: 0.117537394, y: 0, z: 0, w: 0.99306846}
-  m_LocalPosition: {x: -8.303939, y: 3.7515545, z: -17.752747}
+  m_LocalPosition: {x: -8.303939, y: 3.9222631, z: -18.0777}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -944,7 +948,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0.12, z: 0}
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 2.48, y: 0.64, z: 1}
+    PositionDamping: {x: 0.5, y: 0.5, z: 0.5}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -960,7 +964,7 @@ MonoBehaviour:
     Bottom:
       Radius: 4.5
       Height: 3.12
-    SplineCurvature: 0.133
+    SplineCurvature: 1
   RecenteringTarget: 0
   HorizontalAxis:
     Value: 0
