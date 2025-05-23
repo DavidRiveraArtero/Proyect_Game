@@ -13,9 +13,8 @@ public class PlayerController : MonoBehaviour
 
     // Jump Variables
     public float jumpForce = 1f;
-    private float gravityValue = -9.81f;
+    //private float gravityValue = -9.81f; LO DEJO POR SI QUIERO CAMBIAR LA GRAVEDAD
     private Vector3 playerVelocity;
-    private bool isGround;
 
     // PLAYER COMPONENTS
     private Rigidbody playerRb;
@@ -37,49 +36,34 @@ public class PlayerController : MonoBehaviour
         playerCC = gameObject.GetComponent<CharacterController>();
         orbitalFollow = cimemachine.GetComponent<CinemachineOrbitalFollow>();
         playerAnim = gameObject.GetComponent<Animator>();
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         playerAnim.SetBool("is_Walking", false);
-        UnityEngine.Cursor.visible = false;
-
-        isGround = isJump();
-
+        
     }
 
     private void Update()
     {
-        
         Controller(MoveDirection());
         playerRb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
-       
-        
     }
 
 
     void Controller(Vector3 direction)
     {
-        isGround = isJump();
-
-        // VISIBLE CURSOR
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            UnityEngine.Cursor.visible = true;
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-
-        }
+       
 
         // JUMP 
         if (Input.GetButtonDown("Jump") && isJump())
         {
-            playerVelocity.y = Mathf.Sqrt(jumpForce * -2.0f * gravityValue);
-            Debug.Log("dentro");
+            playerVelocity.y = Mathf.Sqrt(jumpForce * -2.0f * Physics.gravity.y);
+         
         }
         // APPLY GRAVITY
-        playerVelocity.y += gravityValue * Time.deltaTime;
+        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
 
         // COMBINE HORIZONTAL AND VERTICAL MOVEMENT
         Vector3 finalJump = (direction * speed) + (playerVelocity.y * Vector3.up);
         playerCC.Move(finalJump * Time.deltaTime);
-        Debug.Log("Default speed: " + direction * speed);
+        
 
         // BOOST SPEED
         if (Input.GetKey(KeyCode.LeftShift))
@@ -120,7 +104,6 @@ public class PlayerController : MonoBehaviour
         // Mediante los Inputs.GetAxis transformamos los vectores "Globales" del jugador
         Vector3 direccion = transform.TransformDirection(moveInput.x , 0, moveInput.z);
         direccion = Vector3.ClampMagnitude(direccion, 1f);
-
         return direccion;
 
     }
@@ -139,7 +122,7 @@ public class PlayerController : MonoBehaviour
             finalSpeed = direction * (speed + (boostSpeed - 2));
             
         }
-        Debug.Log("Final Speed: " + finalSpeed);
+        //Debug.Log("Final Speed: " + finalSpeed);
         return finalSpeed;
     }
 
@@ -179,10 +162,9 @@ public class PlayerController : MonoBehaviour
         {
             return true;
         }
-        else
-        {
-            return false;  
-        }
+       
+        return false;  
+        
 
     }
 }
