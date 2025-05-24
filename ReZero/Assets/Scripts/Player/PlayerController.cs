@@ -2,7 +2,7 @@
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
         playerRb = gameObject.GetComponent<Rigidbody>();
         playerCC = gameObject.GetComponent<CharacterController>();
         orbitalFollow = cimemachine.GetComponent<CinemachineOrbitalFollow>();
+       
+
         playerAnim = gameObject.GetComponent<Animator>();
         playerAnim.SetBool("is_Walking", false);
         
@@ -129,19 +131,19 @@ public class PlayerController : MonoBehaviour
     public void RotateCharacter(Vector3 direction)
     {
         // No tocar
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.D))
+        if (direction.x != 0)
         {
-            
+ 
             transform.rotation = Quaternion.Euler(0, orbitalFollow.HorizontalAxis.Value, 0);
             
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            
+
             //Debug.Log("Division: " + orbitalFollow.HorizontalAxis.Value / 2);
             //Debug.Log("Normal: " + orbitalFollow.HorizontalAxis.Value);
-
+            Debug.Log("dentro de reverese character");
             transform.rotation = Quaternion.Euler(0, orbitalFollow.HorizontalAxis.Value, 0);
 
         }
