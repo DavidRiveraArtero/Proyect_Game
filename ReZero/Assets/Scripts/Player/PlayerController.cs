@@ -2,30 +2,32 @@
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 4f;
+    public float speedRotation = 100f;
     public float boostSpeed = 4f;
     public LayerMask groundLayer;
+    public Vector3 moveDirection;
+    private Vector3 stickDirection;
+
+
 
     // Jump Variables
     public float jumpForce = 1f;
-    //private float gravityValue = -9.81f; LO DEJO POR SI QUIERO CAMBIAR LA GRAVEDAD
+    public float gravityValue = -9.81f; //LO DEJO POR SI QUIERO CAMBIAR LA GRAVEDAD
     private Vector3 playerVelocity;
 
     // PLAYER COMPONENTS
     private Rigidbody playerRb;
     private CharacterController playerCC;
-    private Animator playerAnim;
+
 
     // EXTERNAL COMPONETS
     public GameObject cimemachine;
     private CinemachineOrbitalFollow orbitalFollow;
-
-    // RAYCAST
      
 
 
@@ -35,11 +37,8 @@ public class PlayerController : MonoBehaviour
         playerRb = gameObject.GetComponent<Rigidbody>();
         playerCC = gameObject.GetComponent<CharacterController>();
         orbitalFollow = cimemachine.GetComponent<CinemachineOrbitalFollow>();
-       
 
-        playerAnim = gameObject.GetComponent<Animator>();
-        playerAnim.SetBool("is_Walking", false);
-        
+
     }
 
     private void Update()
@@ -51,64 +50,49 @@ public class PlayerController : MonoBehaviour
 
     void Controller(Vector3 direction)
     {
-       
+ 
 
-        // JUMP 
-        if (Input.GetButtonDown("Jump") && isJump())
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpForce * -2.0f * Physics.gravity.y);
-         
-        }
-        // APPLY GRAVITY
-        playerVelocity.y += Physics.gravity.y * Time.deltaTime;
+        moveDirection = direction * speed;
 
-        // COMBINE HORIZONTAL AND VERTICAL MOVEMENT
-        Vector3 finalJump = (direction * speed) + (playerVelocity.y * Vector3.up);
-        playerCC.Move(finalJump * Time.deltaTime);
-        
+
 
         // BOOST SPEED
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            //finalJump = (direction * speed) + (playerVelocity.y * Vector3.up);
-            //playerCC.Move((finalJump + BoostMove(direction)) * Time.deltaTime);
+            
+            moveDirection = BoostMove(direction);
 
-            finalJump = BoostMove(direction) + (playerVelocity.y * Vector3.up);
-            playerCC.Move(finalJump * Time.deltaTime);
+            playerCC.SimpleMove(moveDirection );
 
         }
-
-        if (direction.z > 0 || direction.z < 0)
+        else
         {
-            //playerCC.SimpleMove(direction * speed);
-            playerAnim.SetBool("is_Walking", true);
-        }
-        else if(direction.z == 0)
-        {
-            playerAnim.SetBool("is_Walking", false);
-
+            playerCC.SimpleMove(moveDirection );
         }
 
-        // ROTATE CHARACTERS
         RotateCharacter(direction);
+
 
     }
 
 
     public Vector3 MoveDirection()
     {
-
+        // ROTATE CHARACTERS
+        stickDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+       
         Vector3 moveInput = Vector3.zero;
-     
-        moveInput.z = Input.GetAxis("Vertical") ;
+
+        moveInput.z = Input.GetAxis("Vertical");
         moveInput.x = Input.GetAxis("Horizontal");
 
         // Mediante los Inputs.GetAxis transformamos los vectores "Globales" del jugador
-        Vector3 direccion = transform.TransformDirection(moveInput.x , 0, moveInput.z);
+        Vector3 direccion = cimemachine.transform.TransformVector(moveInput.x, 0, moveInput.z);
         direccion = Vector3.ClampMagnitude(direccion, 1f);
         return direccion;
 
     }
+
 
     // SHIFT BOOST MOVE 
     public Vector3 BoostMove(Vector3 direction)
@@ -131,22 +115,9 @@ public class PlayerController : MonoBehaviour
     public void RotateCharacter(Vector3 direction)
     {
         // No tocar
-        if (direction.x != 0)
-        {
- 
-            transform.rotation = Quaternion.Euler(0, orbitalFollow.HorizontalAxis.Value, 0);
-            
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-
-            //Debug.Log("Division: " + orbitalFollow.HorizontalAxis.Value / 2);
-            //Debug.Log("Normal: " + orbitalFollow.HorizontalAxis.Value);
-            Debug.Log("dentro de reverese character");
-            transform.rotation = Quaternion.Euler(0, orbitalFollow.HorizontalAxis.Value, 0);
-
-        }
+        Vector3 rotationOffset = cimemachine.transform.TransformVector(stickDirection);
+        rotationOffset.y = 0;
+        transform.forward += Vector3.Lerp(transform.forward, rotationOffset, Time.deltaTime * speedRotation);
 
 
     }
@@ -160,13 +131,17 @@ public class PlayerController : MonoBehaviour
         Ray jumpRay = new Ray(transform.position, -transform.up );
         Debug.DrawRay(transform.position + new Vector3(0, 1f, 0), transform.TransformDirection(Vector3.down), Color.red);
 
+
         if (Physics.Raycast(transform.position + new Vector3(0,1f,0), transform.TransformDirection(Vector3.down),out hit, maxDistance))
         {
+           
             return true;
         }
-       
-        return false;  
-        
+
+    
+        return false;
+
 
     }
+
 }

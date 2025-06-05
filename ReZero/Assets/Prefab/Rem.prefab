@@ -647,6 +647,7 @@ GameObject:
   - component: {fileID: 792796291507344983}
   - component: {fileID: 297377034910125654}
   - component: {fileID: 9007837733803658536}
+  - component: {fileID: 3989297685634229909}
   m_Layer: 0
   m_Name: Rem
   m_TagString: Player
@@ -699,7 +700,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
   m_Controller: {fileID: 9100000, guid: 335c470de1719a34ab4a4ff7c4445c2f, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -774,12 +775,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  boostSpeed: 2
+  boostSpeed: 10
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  moveDirection: {x: 0, y: 0, z: 0}
   jumpForce: 2
+  gravityValue: -30
   cimemachine: {fileID: 0}
+--- !u!114 &3989297685634229909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117093547491542847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7876fbec7305b48837ecc8e355bc99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &122399072380406836
 GameObject:
   m_ObjectHideFlags: 0
