@@ -78,15 +78,15 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 MoveDirection()
     {
-        // ROTATE CHARACTERS
-        stickDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+  
        
         Vector3 moveInput = Vector3.zero;
 
         moveInput.z = Input.GetAxis("Vertical");
         moveInput.x = Input.GetAxis("Horizontal");
 
-        // Mediante los Inputs.GetAxis transformamos los vectores "Globales" del jugador
+        // Mediante los Inputs.GetAxis transformamos los vectores "Globales" de la camara
+        // para luego aplicarlas al jugador independientemente de donde este mirando
         Vector3 direccion = cimemachine.transform.TransformVector(moveInput.x, 0, moveInput.z);
         direccion = Vector3.ClampMagnitude(direccion, 1f);
         return direccion;
@@ -114,7 +114,8 @@ public class PlayerController : MonoBehaviour
 
     public void RotateCharacter(Vector3 direction)
     {
-        // No tocar
+        // ROTATE CHARACTERS
+        stickDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 rotationOffset = cimemachine.transform.TransformVector(stickDirection);
         rotationOffset.y = 0;
         transform.forward += Vector3.Lerp(transform.forward, rotationOffset, Time.deltaTime * speedRotation);
