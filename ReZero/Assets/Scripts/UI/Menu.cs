@@ -16,8 +16,8 @@ public class Menu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Debug.Log("Screen Width: " + Screen.width);
-        Debug.Log("Screen Height: " + Screen.height);
+        /*Debug.Log("Screen Width: " + Screen.width);
+        Debug.Log("Screen Height: " + Screen.height);*/
 
         
 

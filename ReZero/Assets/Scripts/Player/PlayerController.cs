@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 stickDirection;
 
 
-
     // Jump Variables
     public float jumpForce = 1f;
     public float gravityValue = -9.81f; //LO DEJO POR SI QUIERO CAMBIAR LA GRAVEDAD
@@ -28,6 +27,8 @@ public class PlayerController : MonoBehaviour
     // EXTERNAL COMPONETS
     public GameObject cimemachine;
     private CinemachineOrbitalFollow orbitalFollow;
+    
+
      
 
 
@@ -142,7 +143,8 @@ public class PlayerController : MonoBehaviour
     
         return false;
 
-
     }
+
+  
 
 }
