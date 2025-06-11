@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,11 +9,14 @@ public class GameManager : MonoBehaviour
     public TextAsset dialogos;
     private string[] data;
     private bool isInDialogue = false;
+   [SerializeField] private float time = 0.08f;
+    private string textToShow = "";
+    private int count = 0;
 
     // TEXTO DIALOGO
-    public TextMeshProUGUI pressButton;
-    public TextMeshProUGUI textDialogue;
-    public GameObject panelUI_Dialogue;
+    [SerializeField] private TextMeshProUGUI pressButton;
+    [SerializeField] private TextMeshProUGUI textDialogue;
+    [SerializeField] private GameObject panelUI_Dialogue;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,9 +48,9 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.F)) 
+        if (Input.GetKey(KeyCode.F) && count == 0) 
         {
-            Debug.Log("DENTRO");
+            count = 1;
             panelUI_Dialogue.gameObject.SetActive(true);
             isInDialogue = true;
             for (var x = 0; x < data.Length; x++)
@@ -54,7 +58,8 @@ public class GameManager : MonoBehaviour
                 pressButton.gameObject.SetActive(false);
                 if (data[x] == name)
                 {
-                    textDialogue.text = data[x + 1];
+                    textToShow = data[x + 1];
+                    StartCoroutine(ShowTextAddingChar(textToShow));
                 }
             }
             
@@ -68,6 +73,23 @@ public class GameManager : MonoBehaviour
 
         }
 
+
+    }
+
+    IEnumerator ShowTextAddingChar(string textToShow)
+    {
+        textDialogue.text = textToShow;
+        // NOT SHOW THE TEXT 
+        textDialogue.maxVisibleCharacters = 0;
+
+        foreach (char c in textToShow)
+        {
+            // VISIBLE THE NEXT CHARACTER OF THE TEXT 
+            textDialogue.maxVisibleCharacters++;
+            // TIME TO WAIT FOR SHOW THE NEXT CHARACTER OF THE TEXT
+            yield return new WaitForSeconds(time);
+        }
+        count = 0;
 
     }
 }
