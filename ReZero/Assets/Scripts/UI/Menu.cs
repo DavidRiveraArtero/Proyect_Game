@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    private Canvas canvasObject;
+    [SerializeField] private Canvas canvasObject;
     //private CanvasScaler scalerMenu;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
