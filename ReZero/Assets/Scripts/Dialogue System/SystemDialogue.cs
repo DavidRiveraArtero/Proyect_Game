@@ -5,15 +5,16 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-public class GameManager : MonoBehaviour
+public class SystemDialogue : MonoBehaviour
 {
     public TextAsset dialogos;
     private string[] data;
     private bool isInDialogue = false;
-   [SerializeField] private float time = 0.10f;
+   [SerializeField] private float time = 0.04f;
     private string textToShow = "";
     private int count = 0;
     private Texture2D textureIcon;
+    public string idDialogue;
 
     // TEXTO DIALOGO
     [Header("Text Dialogue")]
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         data = dialogos.text.Split(new string[] { ";", "\n" }, System.StringSplitOptions.None);
-        Debug.Log(data.Length);
+        textDialogue.text = "";
 
         // SETEAMOS LOS VALORES A FALSE
         pressButton.gameObject.SetActive(false);
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SearchName(string name, bool isInTrigger)
+    public void SearchName(bool isInTrigger)
     {
         if (isInTrigger && !isInDialogue)
         {
@@ -61,30 +62,12 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.F) && count == 0) 
         {
-            textDialogue.text = "";
+            
             count = 1;
             panelUI_Dialogue.gameObject.SetActive(true);
             isInDialogue = true;
-            for (var x = 0; x < data.Length; x++)
-            {
-                pressButton.gameObject.SetActive(false);
-                if (data[x] == name)
-                {
-
-                    for (var i = 0; i < icons.Length; i++)
-                    {
-                        
-                        if (icons[i].name == data[x + 1])
-                        {
-                            textureIcon = icons[i];
-                            iconDialogue.gameObject.SetActive(true);
-                        }
-                    }
-                    iconDialogue.texture = (Texture)textureIcon;
-                    textToShow = data[x + 2];
-                    StartCoroutine(ShowTextAddingChar(textToShow));
-                }
-            }
+            StartCoroutine(AddText());
+           
             
 
         }
@@ -97,25 +80,66 @@ public class GameManager : MonoBehaviour
             count = 0;
 
         }
+    }
 
+    IEnumerator AddText()
+    {
+        isInDialogue = true;
+        panelUI_Dialogue.SetActive(true);
 
+        for (var x = 0; x < data.Length; x++)
+        {
+            if (data[x].ToLower() == idDialogue.ToLower())
+            {
+                string speaker = data[x + 1];
+                string line = data[x + 2];
+
+                // Mostrar el icono del personaje
+                ShowCharacterIcon(speaker);
+
+                // Mostrar el texto con efecto de escritura
+                yield return StartCoroutine(ShowTextAddingChar(line));
+
+                // Esperar a que el jugador presione C para continuar
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.C));
+            }
+        }
+
+        // Final del diálogo
+        panelUI_Dialogue.SetActive(false);
+        iconDialogue.gameObject.SetActive(false);
+        isInDialogue = false;
+        count = 0;
     }
 
     IEnumerator ShowTextAddingChar(string textToShow)
     {
-        textDialogue.text += textToShow;
-        // NOT SHOW THE TEXT 
+        textDialogue.text = textToShow;
         textDialogue.maxVisibleCharacters = 0;
 
-        foreach (char c in textToShow)
+        for (int i = 0; i < textToShow.Length; i++)
         {
-            
-            // VISIBLE THE NEXT CHARACTER OF THE TEXT 
             textDialogue.maxVisibleCharacters++;
-            // TIME TO WAIT FOR SHOW THE NEXT CHARACTER OF THE TEXT
             yield return new WaitForSeconds(time);
         }
-        count = 0;
-
     }
+
+    void ShowCharacterIcon(string speakerName)
+    {
+        foreach (Texture2D icon in icons)
+        {
+            if (icon.name == speakerName)
+            {
+                iconDialogue.texture = icon;
+                iconDialogue.gameObject.SetActive(true);
+                return;
+            }
+        }
+
+        // Si no se encuentra, se oculta el icono
+        iconDialogue.gameObject.SetActive(false);
+    }
+
+
+
 }

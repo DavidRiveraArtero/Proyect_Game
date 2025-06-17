@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Collider_Dialogo : MonoBehaviour
 {
-    private GameManager gameManager;
+    private SystemDialogue systemDialogue;
     private bool isInTrigger = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        systemDialogue = GetComponent<SystemDialogue>();
     }
 
     // Update is called once per frame
@@ -20,14 +20,14 @@ public class Collider_Dialogo : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         isInTrigger = true;
-        gameManager.SearchName(transform.name, isInTrigger);
+        systemDialogue.SearchName(isInTrigger);
         
     }
 
     private void OnTriggerExit(Collider other)
     {
         isInTrigger = false;
-        gameManager.SearchName("", isInTrigger);
+        systemDialogue.SearchName(isInTrigger);
     }
 
 }

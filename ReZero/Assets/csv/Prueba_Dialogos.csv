@@ -1,8 +1,9 @@
-ID_NAME;Quien;DESC_ESP
-La llegada;Subaru;Tengo hambre, creo que saldre a comprar
-;???;Donde vas Subaru?
-;Subaru;?.
-;???;Que vaya bien!
-*;;
-Rem_Weapon;Rem;Arma caracteristica que usa Rem en combates a mele
-*;;
+ID_NAME;Personaje;DESC_ESP
+La llegada;Subaru;Beatrice dijo que el que me hizo la herida es el responsable de maldecirme.
+La llegada;Subaru;Fue el perro con el que jugaban los niños
+La llegada;Subaru;Si no me creen, pueden venir, pero no podemos dejar sola a Emilia
+La llegada;Rem;Pones tus propias reglas?
+La llegada;Rem;Y si hay que desobedecer las ordenes del señor Roswaal,
+La llegada;Rem;no tenemos razón para ir contigo
+Porque yo;Subaru;Todo el esfuerzo no ha servido para nada
+Porque yo;Rem;No digas eso

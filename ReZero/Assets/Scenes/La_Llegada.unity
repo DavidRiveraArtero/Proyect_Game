@@ -130,6 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!20 &160117095 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 737038506949028188, guid: 6e23410874127dd45831be14abcf6b8f, type: 3}
+  m_PrefabInstance: {fileID: 1964137842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &506899873
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +418,7 @@ GameObject:
   - component: {fileID: 1050384749}
   - component: {fileID: 1050384748}
   m_Layer: 0
-  m_Name: Letrero_Casa_Natsuki
+  m_Name: La llegada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -644,6 +649,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6803913156502461473, guid: a193efd8e7867c047923df2930b465d7, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 160117095}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -737,6 +746,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2381545626311958746, guid: 6b4deb79f188a26489dc46aad0773be5, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 160117095}
     - target: {fileID: 6235321759750485765, guid: 6b4deb79f188a26489dc46aad0773be5, type: 3}
       propertyPath: m_Name
       value: UI_Menu
@@ -1035,6 +1048,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 91913869}
     - target: {fileID: 7969365775309855703, guid: b6e1f9354bfa4a04a9d5819b0cc73bff, type: 3}
+      propertyPath: iconDialogue
+      value: 
+      objectReference: {fileID: 1887695293}
+    - target: {fileID: 7969365775309855703, guid: b6e1f9354bfa4a04a9d5819b0cc73bff, type: 3}
       propertyPath: textDialogue
       value: 
       objectReference: {fileID: 1417033863}
@@ -1155,6 +1172,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695504014}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1887695293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6483056940967694969, guid: a193efd8e7867c047923df2930b465d7, type: 3}
+  m_PrefabInstance: {fileID: 1459669946}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1896272897
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogos: {fileID: 4900000, guid: bfddb10789a0da1498061e5afb1dcc06, type: 3}
-  time: 0.08
+  time: 0.04
   pressButton: {fileID: 0}
   textDialogue: {fileID: 0}
   panelUI_Dialogue: {fileID: 0}
+  iconDialogue: {fileID: 0}
+  icons:
+  - {fileID: 2800000, guid: c3f9c82d32bbbe840acf1b0b54dae6f3, type: 3}
+  - {fileID: 2800000, guid: eb4e9d5c390bc2b4ebe1d9ac8ba19acd, type: 3}
