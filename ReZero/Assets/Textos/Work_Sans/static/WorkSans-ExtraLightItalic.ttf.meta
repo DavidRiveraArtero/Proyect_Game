@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d1780c7da0ac61b4fbf54c8aaeb2fb05
+guid: ce157e44e15042745aee05fd1ed060af
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Playfair Display
+  - Work Sans
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
