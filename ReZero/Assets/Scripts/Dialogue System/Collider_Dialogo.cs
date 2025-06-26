@@ -28,6 +28,7 @@ public class Collider_Dialogo : MonoBehaviour
     {
         isInTrigger = false;
         systemDialogue.SearchName(isInTrigger);
+        systemDialogue.ResetVariable();
     }
 
 }

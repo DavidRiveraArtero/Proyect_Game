@@ -7,16 +7,19 @@ using UnityEngine.UI;
 
 public class SystemDialogue : MonoBehaviour
 {
-    public TextAsset dialogos;
-    private string[] data;
+   
+    // VARIABLES PRIVADAS 
     private bool isInDialogue = false;
-   [SerializeField] private float time = 0.04f;
-    private string textToShow = "";
-    private int count = 0;
-    private Texture2D textureIcon;
-    public string idDialogue;
+    private bool isCoroutineDialogueRunning = false;
+    private string speaker = "";
+    private string line = "";
+    private string[] data;
+    private Coroutine activeCoroutine;
+    [SerializeField] private float time = 0.04f;
+    [SerializeField] private TextAsset dialogos;
+    [SerializeField] private string idDialogue;
 
-    // TEXTO DIALOGO
+    // EXTERNAL GAMEOBJECT UI DIALOGUE
     [Header("Text Dialogue")]
     [SerializeField] private TextMeshProUGUI pressButton;
     [SerializeField] private TextMeshProUGUI textDialogue;
@@ -26,6 +29,7 @@ public class SystemDialogue : MonoBehaviour
     // ICONS CHARACTERS
     [Header("Icons")]
     [SerializeField] private Texture2D[] icons;
+    private Texture2D textureIcon;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,11 +47,11 @@ public class SystemDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void SearchName(bool isInTrigger)
     {
+        
         if (isInTrigger && !isInDialogue)
         {
             pressButton.gameObject.SetActive(true);
@@ -60,39 +64,29 @@ public class SystemDialogue : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.F) && count == 0) 
+        if (!isCoroutineDialogueRunning) 
         {
-            
-            count = 1;
-            panelUI_Dialogue.gameObject.SetActive(true);
-            isInDialogue = true;
-            StartCoroutine(AddText());
-           
-            
-
+            activeCoroutine = StartCoroutine(AddText());
         }
 
-        if (!isInTrigger)
-        {
-            panelUI_Dialogue.gameObject.SetActive(false);
-            iconDialogue.gameObject.SetActive(false);
-            isInDialogue = false;
-            count = 0;
-
-        }
+ 
     }
 
     IEnumerator AddText()
     {
-        isInDialogue = true;
+        isCoroutineDialogueRunning = true;
+        
+        // ESPERAMOS AL QUE EL JUGADOR PULSE F PARA EMPEZAR EL DIALOGO
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
         panelUI_Dialogue.SetActive(true);
+        isInDialogue = true;
 
-        for (var x = 0; x < data.Length; x++)
+        for (var x = 3; x < data.Length; x++)
         {
-            if (data[x].ToLower() == idDialogue.ToLower())
+            if (data[x].ToLowerInvariant() == idDialogue.ToLowerInvariant())
             {
-                string speaker = data[x + 1];
-                string line = data[x + 2];
+                speaker = data[x + 1];
+                line = data[x + 2];
 
                 // Mostrar el icono del personaje
                 ShowCharacterIcon(speaker);
@@ -100,16 +94,14 @@ public class SystemDialogue : MonoBehaviour
                 // Mostrar el texto con efecto de escritura
                 yield return StartCoroutine(ShowTextAddingChar(line));
 
-                // Esperar a que el jugador presione C para continuar
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.C));
+                // Esperar a que el jugador presione F para continuar con el dialogo
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.F));
+               
             }
         }
 
-        // Final del diálogo
-        panelUI_Dialogue.SetActive(false);
-        iconDialogue.gameObject.SetActive(false);
-        isInDialogue = false;
-        count = 0;
+        ResetVariable();
+
     }
 
     IEnumerator ShowTextAddingChar(string textToShow)
@@ -120,7 +112,13 @@ public class SystemDialogue : MonoBehaviour
         for (int i = 0; i < textToShow.Length; i++)
         {
             textDialogue.maxVisibleCharacters++;
+            if(Input.GetKey(KeyCode.Space) && i != textToShow.Length)
+            {
+                textDialogue.maxVisibleCharacters = textToShow.Length;
+                break;
+            }
             yield return new WaitForSeconds(time);
+           
         }
     }
 
@@ -138,6 +136,19 @@ public class SystemDialogue : MonoBehaviour
 
         // Si no se encuentra, se oculta el icono
         iconDialogue.gameObject.SetActive(false);
+    }
+
+    public void ResetVariable()
+    {
+        // LIMPIAR Variables
+        speaker = "";
+        line = "";
+        panelUI_Dialogue.SetActive(false);
+        iconDialogue.gameObject.SetActive(false);
+        isInDialogue = false;
+        isCoroutineDialogueRunning = false;
+        textDialogue.text = "";
+        StopCoroutine(activeCoroutine);
     }
 
 
