@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 1050384750}
   - component: {fileID: 1050384749}
   - component: {fileID: 1050384748}
+  - component: {fileID: 1050384754}
   m_Layer: 0
   m_Name: La llegada
   m_TagString: Untagged
@@ -546,6 +547,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1050384754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050384747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd5e64f97ca3c74898e44278c9e98c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0.04
+  dialogos: {fileID: 4900000, guid: 5281ffd6793a3424c834a073820ce7f6, type: 3}
+  idDialogue: La llegada
+  pressButton: {fileID: 91913869}
+  textDialogue: {fileID: 1417033863}
+  panelUI_Dialogue: {fileID: 580877470}
+  iconDialogue: {fileID: 1887695293}
+  icons:
+  - {fileID: 2800000, guid: eb4e9d5c390bc2b4ebe1d9ac8ba19acd, type: 3}
+  - {fileID: 2800000, guid: c3f9c82d32bbbe840acf1b0b54dae6f3, type: 3}
 --- !u!114 &1417033863 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8711698774424847038, guid: a193efd8e7867c047923df2930b465d7, type: 3}
