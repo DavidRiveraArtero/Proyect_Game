@@ -114,8 +114,8 @@ public class PlayerController : MonoBehaviour
 
     public void RotateCharacter(Vector3 direction)
     {
-        // ROTATE CHARACTERS
-        stickDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        stickDirection = new Vector3(Input.GetAxis("Horizontal") , 0, Input.GetAxis("Vertical") );
         Vector3 rotationOffset = cimemachine.transform.TransformVector(stickDirection);
         rotationOffset.y = 0;
         transform.forward += Vector3.Lerp(transform.forward, rotationOffset, Time.deltaTime * speedRotation);
