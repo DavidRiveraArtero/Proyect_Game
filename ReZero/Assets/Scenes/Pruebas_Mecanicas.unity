@@ -1433,21 +1433,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2129251224}
     - target: {fileID: 4932201715693708511, guid: ed014aeb2513208428b51532416d4162, type: 3}
-      propertyPath: boostSpeed
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4932201715693708511, guid: ed014aeb2513208428b51532416d4162, type: 3}
       propertyPath: cimemachine
       value: 
       objectReference: {fileID: 118234482}
-    - target: {fileID: 4932201715693708511, guid: ed014aeb2513208428b51532416d4162, type: 3}
-      propertyPath: speedRotation
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7863379976390742221, guid: ed014aeb2513208428b51532416d4162, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

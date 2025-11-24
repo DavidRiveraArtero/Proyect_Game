@@ -87,6 +87,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 335c470de1719a34ab4a4ff7c4445c2f, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5958438921693756439, guid: 6bc476e999f6bfb46bb6d82784151081, type: 3}
       propertyPath: m_Intensity
       value: 1.5
@@ -186,9 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b6764b38be94b4b8e75b5a93dfa894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
-  speedRotation: 100
-  boostSpeed: 12
+  speed: 8
+  speedRotation: 80
+  boostSpeed: 13
   groundLayer:
     serializedVersion: 2
     m_Bits: 0

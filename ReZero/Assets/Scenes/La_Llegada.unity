@@ -561,7 +561,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 0.04
   dialogos: {fileID: 4900000, guid: 5281ffd6793a3424c834a073820ce7f6, type: 3}
-  idDialogue: La llegada
+  idDialogue:
+  - Porque yo
+  - La llegada
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   pressButton: {fileID: 91913869}
   textDialogue: {fileID: 1417033863}
   panelUI_Dialogue: {fileID: 580877470}

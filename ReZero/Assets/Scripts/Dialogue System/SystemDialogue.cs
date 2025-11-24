@@ -112,7 +112,7 @@ public class SystemDialogue : MonoBehaviour
         for (int i = 0; i < textToShow.Length; i++)
         {
             textDialogue.maxVisibleCharacters++;
-            if(Input.GetKey(KeyCode.Space) && i != textToShow.Length)
+            if(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Mouse0) && i != textToShow.Length)
             {
                 textDialogue.maxVisibleCharacters = textToShow.Length;
                 break;

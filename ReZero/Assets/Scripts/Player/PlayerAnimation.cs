@@ -37,7 +37,7 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         // Jumping ANIMATION
-        if (!playerController.isJump())
+        /*if (!playerController.isJump())
         {
             playerAnim.SetBool("is_Jumping", true);
         }
@@ -46,5 +46,6 @@ public class PlayerAnimation : MonoBehaviour
             playerAnim.SetBool("is_Jumping", false);
 
         }
+        */
     }
 }
